@@ -60,3 +60,20 @@ function onReady() {
 }
 
 onReady();
+
+// sends form info to server
+function handleSubmit (event) {
+    event.preventDefault();
+
+    let titleInput = document.getElementById('songTitle').value
+    let artistInput = document.getElementById('songArtist').value
+
+    let contentDiv = document.querySelector('#songTableBody');
+        contentDiv.innerHTML += 
+        `
+            <tr>
+                <td>${titleInput}</td>
+                <td>${artistInput}</td>
+            </tr>
+        `;
+    }
