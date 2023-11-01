@@ -1,6 +1,10 @@
+// importing express
 const express = require('express');
 
+// makes server
 const app = express();
+
+// designates port for app to run on
 const PORT = 5001;
 
 const artistListArray = [
@@ -45,13 +49,18 @@ const songListArray = [
     },
 ];
 
+// points app to where content is located
 app.use(express.static('server/public'));
 
+// a route! sends packet to url /artist
 app.get('/artist', (req, res) => {
     res.send(artistListArray);
 });
 
 // TODO - Add GET for songs
+app.get('/song', (req, res) => {
+    res.send(songListArray);
+})
 
 app.listen(PORT, () => {
     console.log('listening on port', PORT)
