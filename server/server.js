@@ -1,12 +1,21 @@
-// importing express
-const express = require('express');
+// ##### SERVER SETUP #####
+    // importing express
+    const express = require('express');
+    // makes server
+    const app = express();
+    // designates port for app to run on
+    const PORT = 5001;
+    // points app to where content is located
+    app.use(express.static('server/public'));
+    // activates app
+    app.listen(PORT, () => {
+        console.log('listening on port', PORT)
+    });
+    // read json
+    app.use(express.json())
 
-// makes server
-const app = express();
 
-// designates port for app to run on
-const PORT = 5001;
-
+// ##### WEBPAGE CONTENT #####
 const artistListArray = [
     {
         name: 'Miles Davis',
@@ -29,7 +38,6 @@ const artistListArray = [
         died: 1971,
     },
 ];
-
 const songListArray = [
     {
         title: 'Take Five',
@@ -49,19 +57,20 @@ const songListArray = [
     },
 ];
 
-// points app to where content is located
-app.use(express.static('server/public'));
 
-// a route! sends packet to url /artist
-app.get('/artist', (req, res) => {
-    res.send(artistListArray);
-});
+// ##### ROUTES #####
+    // a route! sends packet to url /artist
+    app.get('/artist', (req, res) => {
+        res.send(artistListArray);
+    });
+    // TODO - Add GET for songs
+    app.get('/song', (req, res) => {
+        res.send(songListArray);
+    })
+    app.post('/artist', (req, res) => {
+        console.log('artist post recieved')
+        let newArtist = req.body
+        artistListArray.push(newArtist)
+        res.sendStatus(201)
+    })
 
-// TODO - Add GET for songs
-app.get('/song', (req, res) => {
-    res.send(songListArray);
-})
-
-app.listen(PORT, () => {
-    console.log('listening on port', PORT)
-});
